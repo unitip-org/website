@@ -1,29 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-
-const url = "https://jsonplaceholder.typicode.com/users";
-
-const getAllUsers = async (): Promise<
-  {
-    id: number;
-    name: string;
-    email: string;
-  }[]
-> => {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
-};
+import { $api } from "@/shared/commons/openapi";
 
 export const useHomeLogic = () => {
-  const users = useQuery({
-    queryKey: ["users"],
-    queryFn: () => getAllUsers(),
-  });
+  const prices = $api.useQuery("get", "/api/v1/services/prices");
 
   return {
     states: {
-      users,
+      prices: {
+        data: prices.data,
+        isLoading: prices.isLoading,
+        isRefetching: prices.isRefetching,
+        isSuccess: prices.isSuccess,
+        isError: prices.isError,
+      },
     },
-    actions: {},
+    actions: {
+      refetch: () => prices.refetch(),
+    },
   };
 };

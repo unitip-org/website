@@ -25,4 +25,4 @@ dist-ssr
 
 # swagger generator
 src/scripts/swagger.json
-src/shared/openapi
+src/shared/openapi.d.ts
