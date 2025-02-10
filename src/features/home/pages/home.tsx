@@ -12,6 +12,7 @@ export const HomePage = () => {
     <>
       <p>ini adalah halaman home</p>
       <Button onClick={actions.refetch}>refresh</Button>
+      <Button onClick={actions.login}>login</Button>
 
       {(prices.isLoading || prices.isRefetching) && <p>loading...</p>}
       {prices.isSuccess && <p>success</p>}
