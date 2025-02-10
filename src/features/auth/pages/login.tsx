@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useLoginLogic } from "../logics/login";
 
 export default function LoginPage() {
@@ -6,8 +7,8 @@ export default function LoginPage() {
   return (
     <>
       <p>hello world {counter}</p>
-      <button onClick={logic.increment}>increment</button>
-      <button onClick={logic.decrement}>decrement</button>
+      <Button onClick={logic.increment}>Increment</Button>
+      <Button onClick={logic.decrement}>Decrement</Button>
     </>
   );
 }
