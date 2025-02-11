@@ -8,12 +8,17 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
-import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
+
+// Create Virtual Routes
+
+const AuthLoginIndexLazyImport = createFileRoute('/auth/login/')()
 
 // Create/Update Routes
 
@@ -23,15 +28,17 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthLoginIndexLazyRoute = AuthLoginIndexLazyImport.update({
+  id: '/auth/login/',
+  path: '/auth/login/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/auth/login/index.lazy').then((d) => d.Route),
+)
+
 const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
   id: '/auth/register/',
   path: '/auth/register/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthLoginIndexRoute = AuthLoginIndexImport.update({
-  id: '/auth/login/',
-  path: '/auth/login/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,18 +53,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/auth/login/': {
-      id: '/auth/login/'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/auth/register/': {
       id: '/auth/register/'
       path: '/auth/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/login/': {
+      id: '/auth/login/'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -67,42 +74,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
+  '/auth/login': typeof AuthLoginIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
+  '/auth/login': typeof AuthLoginIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
+  '/auth/login/': typeof AuthLoginIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/login' | '/auth/register'
+  fullPaths: '/' | '/auth/register' | '/auth/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/login' | '/auth/register'
-  id: '__root__' | '/' | '/auth/login/' | '/auth/register/'
+  to: '/' | '/auth/register' | '/auth/login'
+  id: '__root__' | '/' | '/auth/register/' | '/auth/login/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
+  AuthLoginIndexLazyRoute: typeof AuthLoginIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
+  AuthLoginIndexLazyRoute: AuthLoginIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,18 +123,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/auth/login/",
-        "/auth/register/"
+        "/auth/register/",
+        "/auth/login/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/auth/login/": {
-      "filePath": "auth/login/index.tsx"
-    },
     "/auth/register/": {
       "filePath": "auth/register/index.tsx"
+    },
+    "/auth/login/": {
+      "filePath": "auth/login/index.lazy.tsx"
     }
   }
 }
