@@ -1,15 +1,15 @@
-import { useAuth } from "@/shared/hooks/auth";
-import { createFileRoute } from "@tanstack/react-router";
+import { useAuth } from '@/shared/hooks/auth'
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/_home-layout/")({
+export const Route = createFileRoute('/_authenticated/_home-layout/')({
   // beforeLoad: ({ context, location }) => {
   //   throw redirect({ to: "/auth/login" });
   // },
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth()
 
   return (
     <div>
@@ -20,7 +20,7 @@ function RouteComponent() {
         molestiae earum rem voluptas!
       </p>
 
-      <p>status autentikasi: {isAuthenticated ? "true" : "false"}</p>
+      <p>status autentikasi: {isAuthenticated ? 'true' : 'false'}</p>
     </div>
-  );
+  )
 }

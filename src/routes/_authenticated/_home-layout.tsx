@@ -1,8 +1,8 @@
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/_home-layout")({
+export const Route = createFileRoute('/_authenticated/_home-layout')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
   return (
@@ -17,5 +17,5 @@ function RouteComponent() {
         <Link to="/account">account</Link>
       </div>
     </>
-  );
+  )
 }

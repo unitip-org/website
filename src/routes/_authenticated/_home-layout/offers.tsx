@@ -1,9 +1,9 @@
-import { Button } from "@/shared/components/ui/button";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from '@/shared/components/ui/button'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/_home-layout/offers")({
+export const Route = createFileRoute('/_authenticated/_home-layout/offers')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
   return (
@@ -15,5 +15,5 @@ function RouteComponent() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

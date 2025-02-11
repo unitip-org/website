@@ -13,16 +13,17 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as HomeLayoutImport } from './routes/_home-layout'
-import { Route as HomeLayoutIndexImport } from './routes/_home-layout/index'
-import { Route as HomeLayoutOffersImport } from './routes/_home-layout/offers'
-import { Route as HomeLayoutJobsImport } from './routes/_home-layout/jobs'
-import { Route as HomeLayoutChatsImport } from './routes/_home-layout/chats'
-import { Route as HomeLayoutAccountImport } from './routes/_home-layout/account'
-import { Route as OffersCreateIndexImport } from './routes/offers/create/index'
-import { Route as JobsCreateIndexImport } from './routes/jobs/create/index'
-import { Route as ChatsConversationIndexImport } from './routes/chats/conversation/index'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as AuthenticatedHomeLayoutImport } from './routes/_authenticated/_home-layout'
 import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
+import { Route as AuthenticatedHomeLayoutIndexImport } from './routes/_authenticated/_home-layout/index'
+import { Route as AuthenticatedHomeLayoutOffersImport } from './routes/_authenticated/_home-layout/offers'
+import { Route as AuthenticatedHomeLayoutJobsImport } from './routes/_authenticated/_home-layout/jobs'
+import { Route as AuthenticatedHomeLayoutChatsImport } from './routes/_authenticated/_home-layout/chats'
+import { Route as AuthenticatedHomeLayoutAccountImport } from './routes/_authenticated/_home-layout/account'
+import { Route as AuthenticatedOffersCreateIndexImport } from './routes/_authenticated/offers/create/index'
+import { Route as AuthenticatedJobsCreateIndexImport } from './routes/_authenticated/jobs/create/index'
+import { Route as AuthenticatedChatsConversationIndexImport } from './routes/_authenticated/chats/conversation/index'
 
 // Create Virtual Routes
 
@@ -30,39 +31,14 @@ const AuthLoginIndexLazyImport = createFileRoute('/auth/login/')()
 
 // Create/Update Routes
 
-const HomeLayoutRoute = HomeLayoutImport.update({
-  id: '/_home-layout',
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
 } as any)
 
-const HomeLayoutIndexRoute = HomeLayoutIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HomeLayoutRoute,
-} as any)
-
-const HomeLayoutOffersRoute = HomeLayoutOffersImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => HomeLayoutRoute,
-} as any)
-
-const HomeLayoutJobsRoute = HomeLayoutJobsImport.update({
-  id: '/jobs',
-  path: '/jobs',
-  getParentRoute: () => HomeLayoutRoute,
-} as any)
-
-const HomeLayoutChatsRoute = HomeLayoutChatsImport.update({
-  id: '/chats',
-  path: '/chats',
-  getParentRoute: () => HomeLayoutRoute,
-} as any)
-
-const HomeLayoutAccountRoute = HomeLayoutAccountImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => HomeLayoutRoute,
+const AuthenticatedHomeLayoutRoute = AuthenticatedHomeLayoutImport.update({
+  id: '/_home-layout',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 const AuthLoginIndexLazyRoute = AuthLoginIndexLazyImport.update({
@@ -73,102 +49,126 @@ const AuthLoginIndexLazyRoute = AuthLoginIndexLazyImport.update({
   import('./routes/auth/login/index.lazy').then((d) => d.Route),
 )
 
-const OffersCreateIndexRoute = OffersCreateIndexImport.update({
-  id: '/offers/create/',
-  path: '/offers/create/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const JobsCreateIndexRoute = JobsCreateIndexImport.update({
-  id: '/jobs/create/',
-  path: '/jobs/create/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ChatsConversationIndexRoute = ChatsConversationIndexImport.update({
-  id: '/chats/conversation/',
-  path: '/chats/conversation/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
   id: '/auth/register/',
   path: '/auth/register/',
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthenticatedHomeLayoutIndexRoute =
+  AuthenticatedHomeLayoutIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedHomeLayoutRoute,
+  } as any)
+
+const AuthenticatedHomeLayoutOffersRoute =
+  AuthenticatedHomeLayoutOffersImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedHomeLayoutRoute,
+  } as any)
+
+const AuthenticatedHomeLayoutJobsRoute =
+  AuthenticatedHomeLayoutJobsImport.update({
+    id: '/jobs',
+    path: '/jobs',
+    getParentRoute: () => AuthenticatedHomeLayoutRoute,
+  } as any)
+
+const AuthenticatedHomeLayoutChatsRoute =
+  AuthenticatedHomeLayoutChatsImport.update({
+    id: '/chats',
+    path: '/chats',
+    getParentRoute: () => AuthenticatedHomeLayoutRoute,
+  } as any)
+
+const AuthenticatedHomeLayoutAccountRoute =
+  AuthenticatedHomeLayoutAccountImport.update({
+    id: '/account',
+    path: '/account',
+    getParentRoute: () => AuthenticatedHomeLayoutRoute,
+  } as any)
+
+const AuthenticatedOffersCreateIndexRoute =
+  AuthenticatedOffersCreateIndexImport.update({
+    id: '/offers/create/',
+    path: '/offers/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedJobsCreateIndexRoute =
+  AuthenticatedJobsCreateIndexImport.update({
+    id: '/jobs/create/',
+    path: '/jobs/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedChatsConversationIndexRoute =
+  AuthenticatedChatsConversationIndexImport.update({
+    id: '/chats/conversation/',
+    path: '/chats/conversation/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_home-layout': {
-      id: '/_home-layout'
+    '/_authenticated': {
+      id: '/_authenticated'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/_home-layout/account': {
-      id: '/_home-layout/account'
+    '/_authenticated/_home-layout': {
+      id: '/_authenticated/_home-layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedHomeLayoutImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/_home-layout/account': {
+      id: '/_authenticated/_home-layout/account'
       path: '/account'
       fullPath: '/account'
-      preLoaderRoute: typeof HomeLayoutAccountImport
-      parentRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedHomeLayoutAccountImport
+      parentRoute: typeof AuthenticatedHomeLayoutImport
     }
-    '/_home-layout/chats': {
-      id: '/_home-layout/chats'
+    '/_authenticated/_home-layout/chats': {
+      id: '/_authenticated/_home-layout/chats'
       path: '/chats'
       fullPath: '/chats'
-      preLoaderRoute: typeof HomeLayoutChatsImport
-      parentRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedHomeLayoutChatsImport
+      parentRoute: typeof AuthenticatedHomeLayoutImport
     }
-    '/_home-layout/jobs': {
-      id: '/_home-layout/jobs'
+    '/_authenticated/_home-layout/jobs': {
+      id: '/_authenticated/_home-layout/jobs'
       path: '/jobs'
       fullPath: '/jobs'
-      preLoaderRoute: typeof HomeLayoutJobsImport
-      parentRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedHomeLayoutJobsImport
+      parentRoute: typeof AuthenticatedHomeLayoutImport
     }
-    '/_home-layout/offers': {
-      id: '/_home-layout/offers'
+    '/_authenticated/_home-layout/offers': {
+      id: '/_authenticated/_home-layout/offers'
       path: '/offers'
       fullPath: '/offers'
-      preLoaderRoute: typeof HomeLayoutOffersImport
-      parentRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedHomeLayoutOffersImport
+      parentRoute: typeof AuthenticatedHomeLayoutImport
     }
-    '/_home-layout/': {
-      id: '/_home-layout/'
+    '/_authenticated/_home-layout/': {
+      id: '/_authenticated/_home-layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof HomeLayoutIndexImport
-      parentRoute: typeof HomeLayoutImport
+      preLoaderRoute: typeof AuthenticatedHomeLayoutIndexImport
+      parentRoute: typeof AuthenticatedHomeLayoutImport
     }
     '/auth/register/': {
       id: '/auth/register/'
       path: '/auth/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/chats/conversation/': {
-      id: '/chats/conversation/'
-      path: '/chats/conversation'
-      fullPath: '/chats/conversation'
-      preLoaderRoute: typeof ChatsConversationIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/jobs/create/': {
-      id: '/jobs/create/'
-      path: '/jobs/create'
-      fullPath: '/jobs/create'
-      preLoaderRoute: typeof JobsCreateIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/offers/create/': {
-      id: '/offers/create/'
-      path: '/offers/create'
-      fullPath: '/offers/create'
-      preLoaderRoute: typeof OffersCreateIndexImport
       parentRoute: typeof rootRoute
     }
     '/auth/login/': {
@@ -178,71 +178,115 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_authenticated/chats/conversation/': {
+      id: '/_authenticated/chats/conversation/'
+      path: '/chats/conversation'
+      fullPath: '/chats/conversation'
+      preLoaderRoute: typeof AuthenticatedChatsConversationIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/jobs/create/': {
+      id: '/_authenticated/jobs/create/'
+      path: '/jobs/create'
+      fullPath: '/jobs/create'
+      preLoaderRoute: typeof AuthenticatedJobsCreateIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/offers/create/': {
+      id: '/_authenticated/offers/create/'
+      path: '/offers/create'
+      fullPath: '/offers/create'
+      preLoaderRoute: typeof AuthenticatedOffersCreateIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
 // Create and export the route tree
 
-interface HomeLayoutRouteChildren {
-  HomeLayoutAccountRoute: typeof HomeLayoutAccountRoute
-  HomeLayoutChatsRoute: typeof HomeLayoutChatsRoute
-  HomeLayoutJobsRoute: typeof HomeLayoutJobsRoute
-  HomeLayoutOffersRoute: typeof HomeLayoutOffersRoute
-  HomeLayoutIndexRoute: typeof HomeLayoutIndexRoute
+interface AuthenticatedHomeLayoutRouteChildren {
+  AuthenticatedHomeLayoutAccountRoute: typeof AuthenticatedHomeLayoutAccountRoute
+  AuthenticatedHomeLayoutChatsRoute: typeof AuthenticatedHomeLayoutChatsRoute
+  AuthenticatedHomeLayoutJobsRoute: typeof AuthenticatedHomeLayoutJobsRoute
+  AuthenticatedHomeLayoutOffersRoute: typeof AuthenticatedHomeLayoutOffersRoute
+  AuthenticatedHomeLayoutIndexRoute: typeof AuthenticatedHomeLayoutIndexRoute
 }
 
-const HomeLayoutRouteChildren: HomeLayoutRouteChildren = {
-  HomeLayoutAccountRoute: HomeLayoutAccountRoute,
-  HomeLayoutChatsRoute: HomeLayoutChatsRoute,
-  HomeLayoutJobsRoute: HomeLayoutJobsRoute,
-  HomeLayoutOffersRoute: HomeLayoutOffersRoute,
-  HomeLayoutIndexRoute: HomeLayoutIndexRoute,
+const AuthenticatedHomeLayoutRouteChildren: AuthenticatedHomeLayoutRouteChildren =
+  {
+    AuthenticatedHomeLayoutAccountRoute: AuthenticatedHomeLayoutAccountRoute,
+    AuthenticatedHomeLayoutChatsRoute: AuthenticatedHomeLayoutChatsRoute,
+    AuthenticatedHomeLayoutJobsRoute: AuthenticatedHomeLayoutJobsRoute,
+    AuthenticatedHomeLayoutOffersRoute: AuthenticatedHomeLayoutOffersRoute,
+    AuthenticatedHomeLayoutIndexRoute: AuthenticatedHomeLayoutIndexRoute,
+  }
+
+const AuthenticatedHomeLayoutRouteWithChildren =
+  AuthenticatedHomeLayoutRoute._addFileChildren(
+    AuthenticatedHomeLayoutRouteChildren,
+  )
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedHomeLayoutRoute: typeof AuthenticatedHomeLayoutRouteWithChildren
+  AuthenticatedChatsConversationIndexRoute: typeof AuthenticatedChatsConversationIndexRoute
+  AuthenticatedJobsCreateIndexRoute: typeof AuthenticatedJobsCreateIndexRoute
+  AuthenticatedOffersCreateIndexRoute: typeof AuthenticatedOffersCreateIndexRoute
 }
 
-const HomeLayoutRouteWithChildren = HomeLayoutRoute._addFileChildren(
-  HomeLayoutRouteChildren,
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedHomeLayoutRoute: AuthenticatedHomeLayoutRouteWithChildren,
+  AuthenticatedChatsConversationIndexRoute:
+    AuthenticatedChatsConversationIndexRoute,
+  AuthenticatedJobsCreateIndexRoute: AuthenticatedJobsCreateIndexRoute,
+  AuthenticatedOffersCreateIndexRoute: AuthenticatedOffersCreateIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
 )
 
 export interface FileRoutesByFullPath {
-  '': typeof HomeLayoutRouteWithChildren
-  '/account': typeof HomeLayoutAccountRoute
-  '/chats': typeof HomeLayoutChatsRoute
-  '/jobs': typeof HomeLayoutJobsRoute
-  '/offers': typeof HomeLayoutOffersRoute
-  '/': typeof HomeLayoutIndexRoute
+  '': typeof AuthenticatedHomeLayoutRouteWithChildren
+  '/account': typeof AuthenticatedHomeLayoutAccountRoute
+  '/chats': typeof AuthenticatedHomeLayoutChatsRoute
+  '/jobs': typeof AuthenticatedHomeLayoutJobsRoute
+  '/offers': typeof AuthenticatedHomeLayoutOffersRoute
+  '/': typeof AuthenticatedHomeLayoutIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/chats/conversation': typeof ChatsConversationIndexRoute
-  '/jobs/create': typeof JobsCreateIndexRoute
-  '/offers/create': typeof OffersCreateIndexRoute
   '/auth/login': typeof AuthLoginIndexLazyRoute
+  '/chats/conversation': typeof AuthenticatedChatsConversationIndexRoute
+  '/jobs/create': typeof AuthenticatedJobsCreateIndexRoute
+  '/offers/create': typeof AuthenticatedOffersCreateIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/account': typeof HomeLayoutAccountRoute
-  '/chats': typeof HomeLayoutChatsRoute
-  '/jobs': typeof HomeLayoutJobsRoute
-  '/offers': typeof HomeLayoutOffersRoute
-  '/': typeof HomeLayoutIndexRoute
+  '': typeof AuthenticatedRouteWithChildren
+  '/account': typeof AuthenticatedHomeLayoutAccountRoute
+  '/chats': typeof AuthenticatedHomeLayoutChatsRoute
+  '/jobs': typeof AuthenticatedHomeLayoutJobsRoute
+  '/offers': typeof AuthenticatedHomeLayoutOffersRoute
+  '/': typeof AuthenticatedHomeLayoutIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/chats/conversation': typeof ChatsConversationIndexRoute
-  '/jobs/create': typeof JobsCreateIndexRoute
-  '/offers/create': typeof OffersCreateIndexRoute
   '/auth/login': typeof AuthLoginIndexLazyRoute
+  '/chats/conversation': typeof AuthenticatedChatsConversationIndexRoute
+  '/jobs/create': typeof AuthenticatedJobsCreateIndexRoute
+  '/offers/create': typeof AuthenticatedOffersCreateIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/_home-layout': typeof HomeLayoutRouteWithChildren
-  '/_home-layout/account': typeof HomeLayoutAccountRoute
-  '/_home-layout/chats': typeof HomeLayoutChatsRoute
-  '/_home-layout/jobs': typeof HomeLayoutJobsRoute
-  '/_home-layout/offers': typeof HomeLayoutOffersRoute
-  '/_home-layout/': typeof HomeLayoutIndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_authenticated/_home-layout': typeof AuthenticatedHomeLayoutRouteWithChildren
+  '/_authenticated/_home-layout/account': typeof AuthenticatedHomeLayoutAccountRoute
+  '/_authenticated/_home-layout/chats': typeof AuthenticatedHomeLayoutChatsRoute
+  '/_authenticated/_home-layout/jobs': typeof AuthenticatedHomeLayoutJobsRoute
+  '/_authenticated/_home-layout/offers': typeof AuthenticatedHomeLayoutOffersRoute
+  '/_authenticated/_home-layout/': typeof AuthenticatedHomeLayoutIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
-  '/chats/conversation/': typeof ChatsConversationIndexRoute
-  '/jobs/create/': typeof JobsCreateIndexRoute
-  '/offers/create/': typeof OffersCreateIndexRoute
   '/auth/login/': typeof AuthLoginIndexLazyRoute
+  '/_authenticated/chats/conversation/': typeof AuthenticatedChatsConversationIndexRoute
+  '/_authenticated/jobs/create/': typeof AuthenticatedJobsCreateIndexRoute
+  '/_authenticated/offers/create/': typeof AuthenticatedOffersCreateIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -255,53 +299,49 @@ export interface FileRouteTypes {
     | '/offers'
     | '/'
     | '/auth/register'
+    | '/auth/login'
     | '/chats/conversation'
     | '/jobs/create'
     | '/offers/create'
-    | '/auth/login'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | ''
     | '/account'
     | '/chats'
     | '/jobs'
     | '/offers'
     | '/'
     | '/auth/register'
+    | '/auth/login'
     | '/chats/conversation'
     | '/jobs/create'
     | '/offers/create'
-    | '/auth/login'
   id:
     | '__root__'
-    | '/_home-layout'
-    | '/_home-layout/account'
-    | '/_home-layout/chats'
-    | '/_home-layout/jobs'
-    | '/_home-layout/offers'
-    | '/_home-layout/'
+    | '/_authenticated'
+    | '/_authenticated/_home-layout'
+    | '/_authenticated/_home-layout/account'
+    | '/_authenticated/_home-layout/chats'
+    | '/_authenticated/_home-layout/jobs'
+    | '/_authenticated/_home-layout/offers'
+    | '/_authenticated/_home-layout/'
     | '/auth/register/'
-    | '/chats/conversation/'
-    | '/jobs/create/'
-    | '/offers/create/'
     | '/auth/login/'
+    | '/_authenticated/chats/conversation/'
+    | '/_authenticated/jobs/create/'
+    | '/_authenticated/offers/create/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  HomeLayoutRoute: typeof HomeLayoutRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
-  ChatsConversationIndexRoute: typeof ChatsConversationIndexRoute
-  JobsCreateIndexRoute: typeof JobsCreateIndexRoute
-  OffersCreateIndexRoute: typeof OffersCreateIndexRoute
   AuthLoginIndexLazyRoute: typeof AuthLoginIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  HomeLayoutRoute: HomeLayoutRouteWithChildren,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
-  ChatsConversationIndexRoute: ChatsConversationIndexRoute,
-  JobsCreateIndexRoute: JobsCreateIndexRoute,
-  OffersCreateIndexRoute: OffersCreateIndexRoute,
   AuthLoginIndexLazyRoute: AuthLoginIndexLazyRoute,
 }
 
@@ -315,58 +355,68 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_home-layout",
+        "/_authenticated",
         "/auth/register/",
-        "/chats/conversation/",
-        "/jobs/create/",
-        "/offers/create/",
         "/auth/login/"
       ]
     },
-    "/_home-layout": {
-      "filePath": "_home-layout.tsx",
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
       "children": [
-        "/_home-layout/account",
-        "/_home-layout/chats",
-        "/_home-layout/jobs",
-        "/_home-layout/offers",
-        "/_home-layout/"
+        "/_authenticated/_home-layout",
+        "/_authenticated/chats/conversation/",
+        "/_authenticated/jobs/create/",
+        "/_authenticated/offers/create/"
       ]
     },
-    "/_home-layout/account": {
-      "filePath": "_home-layout/account.tsx",
-      "parent": "/_home-layout"
+    "/_authenticated/_home-layout": {
+      "filePath": "_authenticated/_home-layout.tsx",
+      "parent": "/_authenticated",
+      "children": [
+        "/_authenticated/_home-layout/account",
+        "/_authenticated/_home-layout/chats",
+        "/_authenticated/_home-layout/jobs",
+        "/_authenticated/_home-layout/offers",
+        "/_authenticated/_home-layout/"
+      ]
     },
-    "/_home-layout/chats": {
-      "filePath": "_home-layout/chats.tsx",
-      "parent": "/_home-layout"
+    "/_authenticated/_home-layout/account": {
+      "filePath": "_authenticated/_home-layout/account.tsx",
+      "parent": "/_authenticated/_home-layout"
     },
-    "/_home-layout/jobs": {
-      "filePath": "_home-layout/jobs.tsx",
-      "parent": "/_home-layout"
+    "/_authenticated/_home-layout/chats": {
+      "filePath": "_authenticated/_home-layout/chats.tsx",
+      "parent": "/_authenticated/_home-layout"
     },
-    "/_home-layout/offers": {
-      "filePath": "_home-layout/offers.tsx",
-      "parent": "/_home-layout"
+    "/_authenticated/_home-layout/jobs": {
+      "filePath": "_authenticated/_home-layout/jobs.tsx",
+      "parent": "/_authenticated/_home-layout"
     },
-    "/_home-layout/": {
-      "filePath": "_home-layout/index.tsx",
-      "parent": "/_home-layout"
+    "/_authenticated/_home-layout/offers": {
+      "filePath": "_authenticated/_home-layout/offers.tsx",
+      "parent": "/_authenticated/_home-layout"
+    },
+    "/_authenticated/_home-layout/": {
+      "filePath": "_authenticated/_home-layout/index.tsx",
+      "parent": "/_authenticated/_home-layout"
     },
     "/auth/register/": {
       "filePath": "auth/register/index.tsx"
     },
-    "/chats/conversation/": {
-      "filePath": "chats/conversation/index.tsx"
-    },
-    "/jobs/create/": {
-      "filePath": "jobs/create/index.tsx"
-    },
-    "/offers/create/": {
-      "filePath": "offers/create/index.tsx"
-    },
     "/auth/login/": {
       "filePath": "auth/login/index.lazy.tsx"
+    },
+    "/_authenticated/chats/conversation/": {
+      "filePath": "_authenticated/chats/conversation/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/jobs/create/": {
+      "filePath": "_authenticated/jobs/create/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/offers/create/": {
+      "filePath": "_authenticated/offers/create/index.tsx",
+      "parent": "/_authenticated"
     }
   }
 }
