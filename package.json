@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "download-swagger": "node ./src/scripts/download-swagger.cjs",
     "codegen-api-old": "npx @openapitools/openapi-generator-cli generate -i ./src/scripts/swagger.json -g typescript-axios -o ./src/shared/openapi --skip-validate-spec",
-    "codegen-api": "npx openapi-typescript ./src/scripts/swagger.json -o ./src/shared/openapi.d.ts",
+    "codegen-api": "npx openapi-typescript ./src/scripts/swagger.json -o ./src/openapi.gen.d.ts",
     "codegen": "rm -rf ./src/shared/openapi && npm run download-swagger && npm run codegen-api"
   },
   "dependencies": {
