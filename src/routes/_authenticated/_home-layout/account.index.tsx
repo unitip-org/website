@@ -2,7 +2,7 @@ import { Button } from '@/shared/components/ui/button'
 import { useAuth } from '@/shared/hooks/auth'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_authenticated/_home-layout/account')({
+export const Route = createFileRoute('/_authenticated/_home-layout/account/')({
   component: RouteComponent,
 })
 
