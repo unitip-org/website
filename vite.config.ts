@@ -7,7 +7,10 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite({ autoCodeSplitting: true }),
+    TanStackRouterVite({
+      autoCodeSplitting: true,
+      routeFileIgnorePattern: ".logic.ts",
+    }),
 
     tailwindcss(),
     react(),
