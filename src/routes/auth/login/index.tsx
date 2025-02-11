@@ -3,11 +3,12 @@ import { extractErrorMessage } from "@/shared/commons/utils";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { useAuth } from "@/shared/hooks/auth";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createLazyFileRoute("/auth/login/")({
+export const Route = createFileRoute("/auth/login/")({
   component: RouteComponent,
 });
 
@@ -17,14 +18,26 @@ function RouteComponent() {
     password: "password",
   });
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const { isPending, mutate, isError, error } = $api.useMutation(
     "post",
     "/api/v1/auth/login"
   );
 
   return (
-    <div>
+    <>
       <div className="mx-auto max-w-md py-8">
+        <Button
+          onClick={() => {
+            login();
+            navigate({ to: "/" });
+          }}
+        >
+          dummy login
+        </Button>
+
         <p className="font-semibold text-2xl">Login</p>
         <p>Masukkan beberapa informasi berikut untuk masuk ke akun Unitip</p>
 
@@ -69,6 +82,6 @@ function RouteComponent() {
           <Link to="/auth/register">Belum punya akun? Daftar sekarang</Link>
         </Button>
       </div>
-    </div>
+    </>
   );
 }

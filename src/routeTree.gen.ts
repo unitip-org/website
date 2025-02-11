@@ -8,14 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedHomeLayoutImport } from './routes/_authenticated/_home-layout'
 import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
+import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
 import { Route as AuthenticatedHomeLayoutIndexImport } from './routes/_authenticated/_home-layout/index'
 import { Route as AuthenticatedHomeLayoutOffersImport } from './routes/_authenticated/_home-layout/offers'
 import { Route as AuthenticatedHomeLayoutJobsImport } from './routes/_authenticated/_home-layout/jobs'
@@ -24,10 +23,6 @@ import { Route as AuthenticatedHomeLayoutAccountImport } from './routes/_authent
 import { Route as AuthenticatedOffersCreateIndexImport } from './routes/_authenticated/offers/create/index'
 import { Route as AuthenticatedJobsCreateIndexImport } from './routes/_authenticated/jobs/create/index'
 import { Route as AuthenticatedChatsConversationIndexImport } from './routes/_authenticated/chats/conversation/index'
-
-// Create Virtual Routes
-
-const AuthLoginIndexLazyImport = createFileRoute('/auth/login/')()
 
 // Create/Update Routes
 
@@ -41,17 +36,15 @@ const AuthenticatedHomeLayoutRoute = AuthenticatedHomeLayoutImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const AuthLoginIndexLazyRoute = AuthLoginIndexLazyImport.update({
-  id: '/auth/login/',
-  path: '/auth/login/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/auth/login/index.lazy').then((d) => d.Route),
-)
-
 const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
   id: '/auth/register/',
   path: '/auth/register/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthLoginIndexRoute = AuthLoginIndexImport.update({
+  id: '/auth/login/',
+  path: '/auth/login/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -164,18 +157,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHomeLayoutIndexImport
       parentRoute: typeof AuthenticatedHomeLayoutImport
     }
+    '/auth/login/': {
+      id: '/auth/login/'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/register/': {
       id: '/auth/register/'
       path: '/auth/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/': {
-      id: '/auth/login/'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/chats/conversation/': {
@@ -252,8 +245,8 @@ export interface FileRoutesByFullPath {
   '/jobs': typeof AuthenticatedHomeLayoutJobsRoute
   '/offers': typeof AuthenticatedHomeLayoutOffersRoute
   '/': typeof AuthenticatedHomeLayoutIndexRoute
+  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/auth/login': typeof AuthLoginIndexLazyRoute
   '/chats/conversation': typeof AuthenticatedChatsConversationIndexRoute
   '/jobs/create': typeof AuthenticatedJobsCreateIndexRoute
   '/offers/create': typeof AuthenticatedOffersCreateIndexRoute
@@ -266,8 +259,8 @@ export interface FileRoutesByTo {
   '/jobs': typeof AuthenticatedHomeLayoutJobsRoute
   '/offers': typeof AuthenticatedHomeLayoutOffersRoute
   '/': typeof AuthenticatedHomeLayoutIndexRoute
+  '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
-  '/auth/login': typeof AuthLoginIndexLazyRoute
   '/chats/conversation': typeof AuthenticatedChatsConversationIndexRoute
   '/jobs/create': typeof AuthenticatedJobsCreateIndexRoute
   '/offers/create': typeof AuthenticatedOffersCreateIndexRoute
@@ -282,8 +275,8 @@ export interface FileRoutesById {
   '/_authenticated/_home-layout/jobs': typeof AuthenticatedHomeLayoutJobsRoute
   '/_authenticated/_home-layout/offers': typeof AuthenticatedHomeLayoutOffersRoute
   '/_authenticated/_home-layout/': typeof AuthenticatedHomeLayoutIndexRoute
+  '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
-  '/auth/login/': typeof AuthLoginIndexLazyRoute
   '/_authenticated/chats/conversation/': typeof AuthenticatedChatsConversationIndexRoute
   '/_authenticated/jobs/create/': typeof AuthenticatedJobsCreateIndexRoute
   '/_authenticated/offers/create/': typeof AuthenticatedOffersCreateIndexRoute
@@ -298,8 +291,8 @@ export interface FileRouteTypes {
     | '/jobs'
     | '/offers'
     | '/'
-    | '/auth/register'
     | '/auth/login'
+    | '/auth/register'
     | '/chats/conversation'
     | '/jobs/create'
     | '/offers/create'
@@ -311,8 +304,8 @@ export interface FileRouteTypes {
     | '/jobs'
     | '/offers'
     | '/'
-    | '/auth/register'
     | '/auth/login'
+    | '/auth/register'
     | '/chats/conversation'
     | '/jobs/create'
     | '/offers/create'
@@ -325,8 +318,8 @@ export interface FileRouteTypes {
     | '/_authenticated/_home-layout/jobs'
     | '/_authenticated/_home-layout/offers'
     | '/_authenticated/_home-layout/'
-    | '/auth/register/'
     | '/auth/login/'
+    | '/auth/register/'
     | '/_authenticated/chats/conversation/'
     | '/_authenticated/jobs/create/'
     | '/_authenticated/offers/create/'
@@ -335,14 +328,14 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
   AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
-  AuthLoginIndexLazyRoute: typeof AuthLoginIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
   AuthRegisterIndexRoute: AuthRegisterIndexRoute,
-  AuthLoginIndexLazyRoute: AuthLoginIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -356,8 +349,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_authenticated",
-        "/auth/register/",
-        "/auth/login/"
+        "/auth/login/",
+        "/auth/register/"
       ]
     },
     "/_authenticated": {
@@ -400,11 +393,11 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/_home-layout/index.tsx",
       "parent": "/_authenticated/_home-layout"
     },
+    "/auth/login/": {
+      "filePath": "auth/login/index.tsx"
+    },
     "/auth/register/": {
       "filePath": "auth/register/index.tsx"
-    },
-    "/auth/login/": {
-      "filePath": "auth/login/index.lazy.tsx"
     },
     "/_authenticated/chats/conversation/": {
       "filePath": "_authenticated/chats/conversation/index.tsx",
