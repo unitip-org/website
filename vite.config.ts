@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     TanStackRouterVite({
       autoCodeSplitting: true,
-      routeFileIgnorePattern: ".logic.ts",
+      routeFileIgnorePattern: ".logic.ts|logic.ts",
     }),
 
     tailwindcss(),
