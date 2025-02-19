@@ -3,7 +3,7 @@ import { extractErrorMessage } from "@/shared/commons/utils";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import { useAuth } from "@/shared/hooks/auth";
+import { useAuth } from "@/shared/contexts/auth";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";

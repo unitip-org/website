@@ -1,13 +1,13 @@
-import { Button } from '@/shared/components/ui/button'
-import { useAuth } from '@/shared/hooks/auth'
-import { createFileRoute } from '@tanstack/react-router'
+import { Button } from "@/shared/components/ui/button";
+import { useAuth } from "@/shared/contexts/auth";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_authenticated/_home-layout/account/')({
+export const Route = createFileRoute("/_authenticated/_home-layout/account/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const { isAuthenticated, login, logout } = useAuth()
+  const { isAuthenticated, login, logout } = useAuth();
 
   return (
     <div>
@@ -15,10 +15,10 @@ function RouteComponent() {
       <p>ubah statsu autentikasi</p>
       <Button
         onClick={() => (isAuthenticated ? logout() : login())}
-        variant={isAuthenticated ? 'destructive' : 'default'}
+        variant={isAuthenticated ? "destructive" : "default"}
       >
-        {isAuthenticated ? 'logout' : 'login'}
+        {isAuthenticated ? "logout" : "login"}
       </Button>
     </div>
-  )
+  );
 }
