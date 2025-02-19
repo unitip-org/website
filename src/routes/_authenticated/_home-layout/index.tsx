@@ -21,6 +21,9 @@ function RouteComponent() {
       </p>
 
       <p>status autentikasi: {session ? "true" : "false"}</p>
+      <p>{session?.email}</p>
+      <p>{session?.id}</p>
+      <p>{session?.token}</p>
     </div>
   );
 }

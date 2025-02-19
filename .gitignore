@@ -26,3 +26,6 @@ dist-ssr
 # swagger generator
 src/scripts/swagger.json
 src/openapi.gen.d.ts
+
+# env
+.env
