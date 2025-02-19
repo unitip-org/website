@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/_home-layout/")({
 });
 
 function RouteComponent() {
-  const { isAuthenticated } = useAuth();
+  const { session } = useAuth();
 
   return (
     <div>
@@ -20,7 +20,7 @@ function RouteComponent() {
         molestiae earum rem voluptas!
       </p>
 
-      <p>status autentikasi: {isAuthenticated ? "true" : "false"}</p>
+      <p>status autentikasi: {session ? "true" : "false"}</p>
     </div>
   );
 }

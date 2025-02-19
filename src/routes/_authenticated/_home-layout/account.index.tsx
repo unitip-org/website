@@ -7,7 +7,7 @@ export const Route = createFileRoute("/_authenticated/_home-layout/account/")({
 });
 
 function RouteComponent() {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, save: login, clear: logout } = useAuth();
 
   return (
     <div>

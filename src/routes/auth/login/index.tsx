@@ -18,7 +18,7 @@ function RouteComponent() {
     password: "password",
   });
 
-  const { login } = useAuth();
+  const { save: login } = useAuth();
   const navigate = useNavigate();
 
   const { isPending, mutate, isError, error } = $api.useMutation(
